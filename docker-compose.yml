@@ -1,0 +1,30 @@
+version: "3.8"
+services:
+  api-server:
+    build: ./backend
+    container_name: backend-server
+    restart: always
+    ports:
+      - "8080:8080"
+    volumes: 
+      - ./server:/usr/src/index
+    environment:
+      - MONGODB_USERNAME=praneetgopal
+      - MONGODB_PASSWORD=praneet30
+      - MONGODB_URL=mongodb+srv://praneetgopal:praneet30@cluster0.0redyfi.mongodb.net/Cluster0?retryWrites=true&w=majority
+    networks:
+      - mern-network
+
+  frontend:
+    build: ./frontend
+    container_name: frontend-server
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/usr/src/index
+    networks:
+      - mern-network
+
+networks:
+  mern-network:
+    driver: bridge
